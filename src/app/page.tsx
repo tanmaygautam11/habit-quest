@@ -1,7 +1,15 @@
-export default function Home() {
+"use client";
+import {SessionProvider} from "next-auth/react"
+import UserButton from "@/components/user-button";
+
+const Home = () => {
   return (
-    <main className="p-10">
-      <h1 className="text-3xl font-bold mb-6 text-indigo">HabitQuest</h1>
-    </main>
+    <div>
+      <SessionProvider>
+        <UserButton />
+      </SessionProvider>
+    </div>
   );
-}
+};
+
+export default Home;
