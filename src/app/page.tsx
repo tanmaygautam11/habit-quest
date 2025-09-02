@@ -1,14 +1,12 @@
 "use client";
-import {SessionProvider} from "next-auth/react"
-import UserButton from "@/components/user-button";
+import AuthSessionProvider from "@/components/auth-session-provider";
+import Header from "@/components/header";
 
 const Home = () => {
   return (
-    <div>
-      <SessionProvider>
-        <UserButton />
-      </SessionProvider>
-    </div>
+    <AuthSessionProvider>
+      <Header />
+    </AuthSessionProvider>
   );
 };
 
