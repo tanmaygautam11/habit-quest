@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import User from "@/models/user";
 import connectToDatabase from "@/lib/database";
 import bcrypt from "bcryptjs";
@@ -6,7 +6,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 
-const handler = NextAuth({
+export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
     },
@@ -88,5 +88,6 @@ const handler = NextAuth({
     
 
   
-});
+};
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
