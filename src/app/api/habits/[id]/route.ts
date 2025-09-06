@@ -4,6 +4,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import dbConnect from "@/lib/database";
 import Habit from "@/models/habit";
 import User from "@/models/user";
+import { calculateStreak } from "@/lib/utils";
 
 // PATCH: Update a habit
 export async function PATCH(req: Request, { params }: { params: { id: string } }) {
@@ -18,9 +19,24 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
   }
   const { id } = params;
   const update = await req.json();
-  const habit = await Habit.findOneAndUpdate({ _id: id, user: user._id }, update, { new: true });
+  // If completedDates is being updated, recalculate streak
+  let habit = await Habit.findOne({ _id: id, user: user._id });
   if (!habit) {
     return NextResponse.json({ message: "Habit not found" }, { status: 404 });
+  }
+  if (update.completedDates) {
+    habit.completedDates = update.completedDates.map((d: string | Date) => new Date(d));
+    const repeatDays = habit.repeat.daysOfWeek && habit.repeat.daysOfWeek.length > 0 ? habit.repeat.daysOfWeek : [0,1,2,3,4,5,6];
+    habit.streak = calculateStreak(habit.completedDates, repeatDays);
+    await habit.save();
+  } else {
+    habit = await Habit.findOneAndUpdate({ _id: id, user: user._id }, update, { new: true });
+    if (habit) {
+      // Always recalculate streak after update
+      const repeatDays = habit.repeat.daysOfWeek && habit.repeat.daysOfWeek.length > 0 ? habit.repeat.daysOfWeek : [0,1,2,3,4,5,6];
+      habit.streak = calculateStreak(habit.completedDates, repeatDays);
+      await habit.save();
+    }
   }
   return NextResponse.json(habit);
 }
@@ -70,7 +86,9 @@ export async function POST(req: Request, { params }: { params: { id: string } })
   const alreadyCompleted = habit.completedDates.some((d: Date) => d.toISOString().slice(0, 10) === dateStr);
   if (!alreadyCompleted) {
     habit.completedDates.push(today);
-    habit.streak += 1;
+    // Recalculate streak using utility
+    const repeatDays = habit.repeat.daysOfWeek && habit.repeat.daysOfWeek.length > 0 ? habit.repeat.daysOfWeek : [0,1,2,3,4,5,6];
+    habit.streak = calculateStreak(habit.completedDates, repeatDays);
     await habit.save();
 
     // RPG logic: add XP to user, level up if needed
