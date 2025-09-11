@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
+import Logo from "@/components/ui/icons/habitquest.png";
 import AddHabit from "@/components/dashboard/AddHabit";
 import { FaChartBar, FaList, FaUser } from "react-icons/fa";
 
@@ -25,10 +27,21 @@ export default function Sidebar() {
     <>
       <aside className="w-64 bg-white/90 border-r border-indigo-200 shadow-lg flex flex-col min-h-screen p-6">
         {/* Top section for app title (and later user info/logout) */}
-        <div className="mb-10 text-center">
-          <h1 className="text-2xl font-extrabold text-indigo-700 tracking-tight">HabitQuest</h1>
-          <p className="text-xs text-slate-400 mt-1">Gamify your habits</p>
-        </div>
+        <div className="flex items-center mb-5">
+        <Image
+          src={Logo}
+          alt="HabitQuest Logo"
+          width={48}
+          height={48}
+          className="rounded-md"
+        />
+        <span
+          className="text-2xl font-bold text-slate-700"
+          style={{ fontFamily: "Markazi Text, serif" }}
+        >
+          HabitQuest
+        </span>
+      </div>
         {/* Navigation links */}
         <nav className="flex-1 flex flex-col gap-2">
           {navItems.map((item) => (
