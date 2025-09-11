@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -10,14 +10,19 @@ import Link from "next/link";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { TriangleAlert } from "lucide-react";
-import TestLogout from "@/components/test-logout";
 
 const SignIn = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const router = useRouter();
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.replace("/dashboard");
+    }
+  }, [status, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,7 +52,6 @@ const SignIn = () => {
     <>
       {session ? (
         <div className="h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-200 via-sky-100 to-emerald-100">
-          <TestLogout />
           <div className="bg-white/90 rounded-3xl shadow-2xl px-12 py-16 flex flex-col items-center max-w-lg w-full border-t-8 border-emerald-400">
             <h1 className="text-4xl font-extrabold text-emerald-700 mb-2 tracking-tight">Welcome back, <span className="text-indigo-700">{session.user?.name || session.user?.email}</span>!</h1>
             <p className="text-lg text-slate-600 mb-6">You are now logged in. Explore your habits, quests, and more from the sidebar.</p>
