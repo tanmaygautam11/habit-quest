@@ -1,2 +1,2 @@
-import QuestsPage from "@/components/quests-page";
+import QuestsPage from "@/components/dashboard/Quests";
 export default QuestsPage;

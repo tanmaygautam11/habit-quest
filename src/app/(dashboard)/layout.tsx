@@ -1,7 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
-import Sidebar from "@/components/dashboard/sidebar";
-import GemsDisplay from "@/components/gems-display";
+import Sidebar from "@/components/layout/Sidebar";
+import GemsDisplay from "@/components/dashboard/GemsDisplay";
 
 export default function AppDashboardLayout({ children }: { children: React.ReactNode }) {
   const { data: session, status } = useSession();

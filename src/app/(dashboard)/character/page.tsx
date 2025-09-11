@@ -1,2 +1,2 @@
-import CharacterPage from "@/components/character-page";
+import CharacterPage from "@/components/dashboard/CharacterPage";
 export default CharacterPage;

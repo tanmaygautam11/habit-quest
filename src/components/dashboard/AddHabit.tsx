@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 
-interface AddHabitModalProps {
+interface AddHabitProps {
   open: boolean;
   onClose: () => void;
   onHabitAdded: () => void;
@@ -23,7 +23,7 @@ const presetHabits = [
   { label: "Plan Day", icon: "🗓️" },
 ];
 
-export default function AddHabitModal({ open, onClose, onHabitAdded }: AddHabitModalProps) {
+export default function AddHabit({ open, onClose, onHabitAdded }: AddHabitProps) {
   const [title, setTitle] = useState("");
   const [repeatType, setRepeatType] = useState<"daysOfWeek" | "countPerWeek">("daysOfWeek");
   const [daysOfWeek, setDaysOfWeek] = useState<number[]>([]);

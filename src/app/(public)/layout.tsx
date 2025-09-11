@@ -1,4 +1,4 @@
-import Header from "@/components/header";
+import Header from "@/components/layout/Header";
 
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
   return (

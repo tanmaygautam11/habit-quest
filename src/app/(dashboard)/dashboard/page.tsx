@@ -1,5 +1,5 @@
 import React from "react";
-import HabitsList from "@/components/dashboard/habits-list";
+import HabitsList from "@/components/dashboard/HabitsList";
 
 export default function DashboardPage() {
   return (

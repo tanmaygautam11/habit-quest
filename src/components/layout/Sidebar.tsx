@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import AddHabitModal from "@/components/dashboard/add-habit-modal";
+import AddHabitModal from "@/components/dashboard/AddHabit";
 import { FaPlus, FaChartBar, FaList, FaUser } from "react-icons/fa";
 
 const navItems = [
