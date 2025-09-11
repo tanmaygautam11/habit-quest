@@ -2,9 +2,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import AddHabitModal from "@/components/dashboard/AddHabit";
-import { FaPlus, FaChartBar, FaList, FaUser } from "react-icons/fa";
+import AddHabit from "@/components/dashboard/AddHabit";
+import { FaChartBar, FaList, FaUser } from "react-icons/fa";
 
 const navItems = [
   { href: "/dashboard", label: "Habits", icon: <FaList /> },
@@ -12,7 +11,6 @@ const navItems = [
   { href: "/character", label: "Character", icon: <FaUser /> },
   { href: "/dashboard/leaderboard", label: "Leaderboard", icon: <FaChartBar /> },
 ];
-
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -26,10 +24,12 @@ export default function Sidebar() {
   return (
     <>
       <aside className="w-64 bg-white/90 border-r border-indigo-200 shadow-lg flex flex-col min-h-screen p-6">
+        {/* Top section for app title (and later user info/logout) */}
         <div className="mb-10 text-center">
           <h1 className="text-2xl font-extrabold text-indigo-700 tracking-tight">HabitQuest</h1>
           <p className="text-xs text-slate-400 mt-1">Gamify your habits</p>
         </div>
+        {/* Navigation links */}
         <nav className="flex-1 flex flex-col gap-2">
           {navItems.map((item) => (
             <Link
@@ -42,16 +42,12 @@ export default function Sidebar() {
             </Link>
           ))}
         </nav>
-        <div className="mt-8">
-          <Button
-            className="w-full flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-indigo-500 hover:from-emerald-600 hover:to-indigo-600 text-white shadow-lg text-lg py-3 font-semibold tracking-wide transition-colors"
-            onClick={() => setModalOpen(true)}
-          >
-            <FaPlus /> Add Habit
-          </Button>
+        {/* Logout button at the bottom (for future use) */}
+        <div className="mt-auto pt-8">
+          {/* Placeholder for logout/user info */}
         </div>
       </aside>
-      <AddHabitModal open={modalOpen} onClose={() => setModalOpen(false)} onHabitAdded={handleHabitAdded} />
+      <AddHabit open={modalOpen} onClose={() => setModalOpen(false)} onHabitAdded={handleHabitAdded} />
     </>
   );
 }

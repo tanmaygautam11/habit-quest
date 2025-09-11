@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
 
 interface AddHabitProps {
   open: boolean;
@@ -66,25 +65,28 @@ export default function AddHabit({ open, onClose, onHabitAdded }: AddHabitProps)
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20">
-      <div className="bg-white rounded-xl shadow p-6 w-full max-w-sm relative animate-fade-in-up border border-slate-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
+      <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md relative animate-fade-in-up border border-slate-200">
         <button
-          className="absolute top-3 right-3 text-slate-400 hover:text-rose-500 text-xl"
+          className="absolute top-4 right-4 text-slate-400 hover:text-rose-500 text-2xl font-bold"
           onClick={onClose}
           aria-label="Close"
         >
           ×
         </button>
-        <h2 className="text-xl font-semibold text-indigo-800 mb-4">Add Habit</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <h2 className="text-2xl font-bold text-indigo-800 mb-6 flex items-center gap-2">
+          <span className="bg-emerald-100 text-emerald-600 rounded-full p-2 text-lg">＋</span>
+          Add New Habit
+        </h2>
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-slate-600 font-medium mb-1">Quick Add</label>
-            <div className="grid grid-cols-4 gap-2 mb-2">
+            <label className="block text-slate-600 font-semibold mb-2">Quick Add</label>
+            <div className="grid grid-cols-4 gap-3 mb-3">
               {presetHabits.map((h) => (
                 <button
                   type="button"
                   key={h.label}
-                  className={`flex flex-col items-center justify-center p-2 rounded-lg border text-xs font-medium transition-colors ${title === h.label ? "bg-indigo-100 border-indigo-400 text-indigo-700" : "bg-slate-50 border-slate-200 text-slate-500"}`}
+                  className={`flex flex-col items-center justify-center p-2 rounded-xl border text-xs font-medium transition-colors shadow-sm ${title === h.label ? "bg-indigo-100 border-indigo-400 text-indigo-700" : "bg-slate-50 border-slate-200 text-slate-500"}`}
                   onClick={() => setTitle(h.label)}
                 >
                   <span className="text-xl mb-1">{h.icon}</span>
@@ -92,9 +94,9 @@ export default function AddHabit({ open, onClose, onHabitAdded }: AddHabitProps)
                 </button>
               ))}
             </div>
-            <label className="block text-slate-600 font-medium mb-1 mt-2">Or Custom</label>
+            <label className="block text-slate-600 font-semibold mb-2 mt-3">Or Custom</label>
             <input
-              className="w-full border border-slate-200 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-indigo-200"
+              className="w-full border border-slate-200 rounded-lg px-4 py-2 text-base focus:outline-none focus:ring-2 focus:ring-indigo-200 shadow-sm"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
@@ -104,9 +106,9 @@ export default function AddHabit({ open, onClose, onHabitAdded }: AddHabitProps)
             />
           </div>
           <div>
-            <label className="block text-slate-600 font-medium mb-1">Repeat</label>
-            <div className="flex gap-4 mb-2">
-              <label className="flex items-center gap-2 text-slate-500">
+            <label className="block text-slate-600 font-semibold mb-2">Repeat</label>
+            <div className="flex gap-6 mb-3">
+              <label className="flex items-center gap-2 text-slate-500 cursor-pointer">
                 <input
                   type="radio"
                   checked={repeatType === "daysOfWeek"}
@@ -114,7 +116,7 @@ export default function AddHabit({ open, onClose, onHabitAdded }: AddHabitProps)
                 />
                 Specific days
               </label>
-              <label className="flex items-center gap-2 text-slate-500">
+              <label className="flex items-center gap-2 text-slate-500 cursor-pointer">
                 <input
                   type="radio"
                   checked={repeatType === "countPerWeek"}
@@ -124,12 +126,12 @@ export default function AddHabit({ open, onClose, onHabitAdded }: AddHabitProps)
               </label>
             </div>
             {repeatType === "daysOfWeek" ? (
-              <div className="flex gap-1">
-                {["S", "M", "T", "W", "T", "F", "S"].map((d, i) => (
+              <div className="flex gap-2">
+                {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((d, i) => (
                   <button
                     type="button"
                     key={i}
-                    className={`w-8 h-8 rounded-full border text-base font-semibold transition-colors ${daysOfWeek.includes(i) ? "bg-indigo-500 text-white border-indigo-500" : "bg-slate-50 text-slate-500 border-slate-200"}`}
+                    className={`w-9 h-9 rounded-full border text-base font-semibold transition-colors ${daysOfWeek.includes(i) ? "bg-indigo-500 text-white border-indigo-500" : "bg-slate-50 text-slate-500 border-slate-200"}`}
                     onClick={() => handleDayToggle(i)}
                   >
                     {d}
@@ -144,20 +146,20 @@ export default function AddHabit({ open, onClose, onHabitAdded }: AddHabitProps)
                   max={7}
                   value={countPerWeek}
                   onChange={(e) => setCountPerWeek(Number(e.target.value))}
-                  className="w-14 border border-slate-200 rounded px-2 py-1 text-base"
+                  className="w-16 border border-slate-200 rounded-lg px-2 py-1 text-base shadow-sm"
                 />
                 <span className="text-slate-500">days per week</span>
               </div>
             )}
           </div>
           {error && <div className="bg-rose-50 text-rose-600 p-2 rounded text-sm">{error}</div>}
-          <Button
+          <button
             type="submit"
-            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-base py-2 font-semibold rounded-lg shadow-none transition-colors"
+            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-base py-2 font-semibold rounded-lg shadow transition-colors"
             disabled={loading}
           >
             {loading ? "Adding..." : "Add Habit"}
-          </Button>
+          </button>
         </form>
       </div>
     </div>
