@@ -28,7 +28,7 @@ export default function Sidebar() {
 
   return (
     <>
-      <aside className="w-64 bg-white/90 border-r border-indigo-200 shadow-lg flex flex-col h-screen p-6 relative">
+      <aside className="fixed z-30 w-64 bg-white/90 border-r border-indigo-200 shadow-lg flex flex-col h-screen p-6">
         {/* Top section for app title (and later user info/logout) */}
         <div className="flex items-center mb-5">
         <Image

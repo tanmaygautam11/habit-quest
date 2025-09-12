@@ -14,7 +14,7 @@ export default function AppDashboardLayout({ children }: { children: React.React
         <div className="absolute right-8 top-6 z-20">
           <GemsDisplay />
         </div>
-        <main className="p-6 md:p-10 overflow-y-auto">{children}</main>
+        <main className="ml-64 p-6 md:p-10 overflow-y-auto">{children}</main>
       </div>
     </div>
   );
