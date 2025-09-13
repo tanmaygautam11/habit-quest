@@ -9,10 +9,10 @@ import { FaChartBar, FaList, FaUser } from "react-icons/fa";
 import { useSession, signOut } from "next-auth/react";
 
 const navItems = [
-  { href: "/dashboard", label: "Habits", icon: <FaList /> },
+  { href: "/habits", label: "Habits", icon: <FaList /> },
   { href: "/quests", label: "Quests", icon: <FaChartBar /> },
   { href: "/character", label: "Character", icon: <FaUser /> },
-  { href: "/dashboard/leaderboard", label: "Leaderboard", icon: <FaChartBar /> },
+  { href: "/leaderboard", label: "Leaderboard", icon: <FaChartBar /> },
 ];
 
 export default function Sidebar() {

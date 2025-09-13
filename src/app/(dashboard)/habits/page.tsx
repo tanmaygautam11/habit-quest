@@ -4,7 +4,7 @@ import HabitsList from "@/components/dashboard/HabitsList";
 import AddHabit from "@/components/dashboard/AddHabit";
 import { FaPlus } from "react-icons/fa";
 
-export default function DashboardPage() {
+export default function HabitsPage() {
   const [addOpen, setAddOpen] = useState(false);
   return (
     <div>
